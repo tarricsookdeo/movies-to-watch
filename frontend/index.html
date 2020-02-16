@@ -13,6 +13,40 @@
   </head>
 
   <body>
+  <body>
+    <nav class="navbar navbar-dark bg-dark">
+      <h2 class="text-white mx-auto">Movies To Watch</h2>
+    </nav>
+
+    <div class="container">
+      <div class="errors">
+        <!-- errors will be injected here -->
+      </div>
+
+      <form action="">
+        <div class="row mt-2">
+          <div class="col-10 mr-0">
+            <input
+              class="form-control form-control-sm"
+              type="text"
+              placeholder="Enter name of a new genre to create it..."
+            />
+          </div>
+          <div class="col-2">
+            <input
+              class="btn btn-primary btn-sm ml-0"
+              type="submit"
+              value="Create Genre"
+            />
+          </div>
+        </div>
+      </form>
+
+      <div class="genres">
+        <!-- genres and movies will be injected here -->
+      </div>
+    </div>
+    
     <!-- Bootstrap 4 javascript CDN's -->
     <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
