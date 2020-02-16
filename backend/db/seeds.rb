@@ -11,7 +11,7 @@ genres = Genre.create([
     { name: 'Horror' },
     { name: 'Action' },
     { name: 'Comedy' },
-    { name: 'animation' }
+    { name: 'Animation' }
 ])
 
 # Create seed movies
