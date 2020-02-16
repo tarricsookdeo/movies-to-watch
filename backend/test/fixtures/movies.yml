@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  length: 1
+  is_watched: false
+  genre_id: 1
+
+two:
+  title: MyString
+  length: 1
+  is_watched: false
+  genre_id: 1
