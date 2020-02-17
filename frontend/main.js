@@ -103,3 +103,9 @@ const createGenre = () => {
       });
   }
 };
+
+// Create movie
+const genreSelect = document.getElementsByClassName("custom-select");
+const movieTitle = document.getElementById("create-movie-title-text");
+const movieLength = document.getElementById("create-movie-lenght-text");
+const watchedCheckbox = document.getElementById("create-movie-watched-check");
