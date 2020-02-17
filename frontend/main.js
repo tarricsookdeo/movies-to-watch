@@ -1,5 +1,4 @@
 const BASE_URL = "http://localhost:3000";
-let data = [];
 
 window.addEventListener("load", () => {
   getGenres();
@@ -14,8 +13,6 @@ const getGenres = () => {
   fetch(url)
     .then(response => response.json())
     .then(genres => {
-      console.log(genres);
-      data = genres;
       genres.forEach(genre => {
         genreList.innerHTML += generateGenreMarkup(genre);
         generateGenreSelectOption(genre);
@@ -117,7 +114,49 @@ const createGenre = () => {
 };
 
 // Create movie
-const genreSelect = document.getElementsByClassName("custom-select");
+const genreSelect = document.getElementById("genre-select");
 const movieTitle = document.getElementById("create-movie-title-text");
 const movieLength = document.getElementById("create-movie-lenght-text");
 const watchedCheckbox = document.getElementById("create-movie-watched-check");
+const createMovieBtn = document.getElementById("create-movie-btn");
+
+createMovieBtn.addEventListener("click", event => {
+  event.preventDefault();
+  createMovie();
+});
+
+const createMovie = () => {
+  const movie = {
+    title: movieTitle.value,
+    length: movieLength.value,
+    is_watched: watchedCheckbox.checked,
+    genre_id: genreSelect.value
+  };
+
+  movieTitle.value = "";
+  movieLength.value = "";
+
+  fetch(BASE_URL + "/movies", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(movie)
+  })
+    .then(response => response.json())
+    .then(movie => {
+      let movieList = document.getElementsByClassName(
+        movie.genre.name + "-class"
+      );
+      movieList.innerHTML += addSingleMovie(movie);
+    })
+    .catch(error => {
+      const errorMsg = document.getElementById("errors");
+      errorMsg.innerHTML = "Something went wrong when adding movie";
+    });
+};
+
+const addSingleMovie = movie => {
+  let movieMarkup = `<li>Title: ${movie.title} --- Lenght: ${movie.length} minutes --- Watched: ${movie.is_watched}</li>`;
+  return movieMarkup;
+};
