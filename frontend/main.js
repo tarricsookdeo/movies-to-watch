@@ -65,3 +65,40 @@ const generateMovieMarkup = (movieArr, genreObj) => {
 
   return movieList.innerHTML;
 };
+
+// Create genre
+const createGenreBtn = document.getElementById("create-genre-btn");
+const createGenreText = document.getElementById("create-genre-text");
+
+createGenreBtn.addEventListener("click", event => {
+  event.preventDefault();
+  createGenre();
+});
+
+const createGenre = () => {
+  const genreName = createGenreText.value;
+
+  if (genreName.length > 0) {
+    createGenreText.value = "";
+
+    const genre = {
+      name: genreName
+    };
+
+    fetch(BASE_URL + "/genres", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(genre)
+    })
+      .then(response => response.json())
+      .then(genre => {
+        let genreList = document.getElementById("accordion");
+        genreList.innerHTML += generateGenreMarkup(genre);
+      })
+      .catch(error => {
+        console.error("Error:", error);
+      });
+  }
+};
