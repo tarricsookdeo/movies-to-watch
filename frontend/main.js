@@ -68,7 +68,7 @@ const generateMovieMarkup = (movieArr, genreObj) => {
   movieList.innerHTML = "";
 
   movieArr.forEach(movie => {
-    movieList.innerHTML += `<li>Title: ${movie.title} --- Lenght: ${movie.length} minutes --- Watched: ${movie.is_watched}</li>`;
+    movieList.innerHTML += `<li>Title: ${movie.title} --- Length: ${movie.length} minutes --- Watched: ${movie.is_watched}</li>`;
   });
 
   return movieList.innerHTML;
@@ -145,18 +145,19 @@ const createMovie = () => {
   })
     .then(response => response.json())
     .then(movie => {
-      let movieList = document.getElementsByClassName(
-        movie.genre.name + "-class"
-      );
-      movieList.innerHTML += addSingleMovie(movie);
+      addSingleMovie(movie);
     })
     .catch(error => {
       const errorMsg = document.getElementById("errors");
-      errorMsg.innerHTML = "Something went wrong when adding movie";
+      errorMsg.innerHTML = error;
     });
 };
 
 const addSingleMovie = movie => {
-  let movieMarkup = `<li>Title: ${movie.title} --- Lenght: ${movie.length} minutes --- Watched: ${movie.is_watched}</li>`;
-  return movieMarkup;
+  let movieList = document.getElementsByClassName(movie.genre.name + "-class");
+
+  const newMovie = `<li>Title: ${movie.title} --- Length: ${movie.length} minutes --- Watched: ${movie.is_watched}</li>`;
+  movieList.innerHTML += newMovie;
+
+  return movieList.innerHTML;
 };
