@@ -43,8 +43,10 @@ const generateGenreMarkup = genreObj => {
                          aria-labelledby="${genreObj.name}" 
                          data-parent="#accordion">
                           <div class="card-body">
-                            <ul>
-                              ${generateMovieMarkup(genreMovies[0])}
+                            <ul id="genre-movie-list" class="${
+                              genreObj.name
+                            }-class">
+                              ${generateMovieMarkup(genreMovies, genreObj)}
                             </ul>
                           </div>
                         </div>
@@ -53,7 +55,13 @@ const generateGenreMarkup = genreObj => {
   return genreMarkup;
 };
 
-const generateMovieMarkup = movieObj => {
-  const markup = `<li>Title: ${movieObj.title} - Length: ${movieObj.length} minutes - Watched: ${movieObj.is_watched}</li>`;
-  return markup;
+const generateMovieMarkup = (movieArr, genreObj) => {
+  const movieList = document.getElementsByClassName(genreObj.name + "-class");
+  movieList.innerHTML = "";
+
+  movieArr.forEach(movie => {
+    movieList.innerHTML += `<li>Title: ${movie.title} --- Lenght: ${movie.length} minutes --- Watched: ${movie.is_watched}</li>`;
+  });
+
+  return movieList.innerHTML;
 };
