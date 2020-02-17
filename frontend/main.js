@@ -18,8 +18,19 @@ const getGenres = () => {
       data = genres;
       genres.forEach(genre => {
         genreList.innerHTML += generateGenreMarkup(genre);
+        generateGenreSelectOption(genre);
       });
     });
+};
+
+const generateGenreSelectOption = genreObj => {
+  const genreSelect = document.getElementById("genre-select");
+
+  const option = document.createElement("option");
+  option.value = genreObj.id;
+  option.label = genreObj.name;
+
+  genreSelect.appendChild(option);
 };
 
 const generateGenreMarkup = genreObj => {
@@ -96,6 +107,7 @@ const createGenre = () => {
       .then(genre => {
         let genreList = document.getElementById("accordion");
         genreList.innerHTML += generateGenreMarkup(genre);
+        generateGenreSelectOption(genre);
       })
       .catch(error => {
         const errorMsg = document.getElementById("errors");
