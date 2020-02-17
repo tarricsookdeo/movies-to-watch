@@ -35,6 +35,7 @@ const generateGenreMarkup = genreObj => {
                                 aria-controls="${genreObj.id}">
                                     ${genreObj.name}
                                 </button>
+                                <button class="btn btn-primany">+</button>
                             </h5>
                         </div>
                         
@@ -98,7 +99,8 @@ const createGenre = () => {
         genreList.innerHTML += generateGenreMarkup(genre);
       })
       .catch(error => {
-        console.error("Error:", error);
+        const errorMsg = document.getElementById("errors");
+        errorMsg.innerHTML = "That genre name already exists.";
       });
   }
 };
