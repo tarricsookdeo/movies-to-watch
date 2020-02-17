@@ -35,7 +35,6 @@ const generateGenreMarkup = genreObj => {
                                 aria-controls="${genreObj.id}">
                                     ${genreObj.name}
                                 </button>
-                                <button class="btn btn-primany">+</button>
                             </h5>
                         </div>
                         
