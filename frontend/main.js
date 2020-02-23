@@ -145,7 +145,6 @@ const createMovie = () => {
   })
     .then(response => response.json())
     .then(movie => {
-      // create movie object, and call render on the object
       const newMovie = new Movie(movie);
       newMovie.render();
     })
@@ -155,12 +154,3 @@ const createMovie = () => {
     });
 };
 
-// const addSingleMovie = movie => {
-//   let movieList = document.getElementsByClassName(
-//     movie.genre.name + "-class"
-//   )[0];
-
-//   const newMovie = `<li>Title: ${movie.title} --- Length: ${movie.length} minutes --- Watched: ${movie.is_watched}</li>`;
-//   movieList.innerHTML += newMovie;
-//   // return movieList.innerHTML;
-// };
