@@ -1,19 +1,19 @@
-const BASE_URL = "http://localhost:3000";
+const BASE_URL = 'http://localhost:3000';
 
-window.addEventListener("load", () => {
+window.addEventListener('load', () => {
   getGenres();
 });
 
 const getGenres = () => {
-  const url = BASE_URL + "/genres";
+  const url = BASE_URL + '/genres';
 
-  let genreList = document.getElementById("accordion");
-  genreList.innerHTML = "";
+  let genreList = document.getElementById('accordion');
+  genreList.innerHTML = '';
 
   fetch(url)
     .then(response => response.json())
     .then(genres => {
-      genres.forEach(genre => {
+      genres.map(genre => {
         genreList.innerHTML += generateGenreMarkup(genre);
         generateGenreSelectOption(genre);
       });
@@ -21,9 +21,9 @@ const getGenres = () => {
 };
 
 const generateGenreSelectOption = genreObj => {
-  const genreSelect = document.getElementById("genre-select");
+  const genreSelect = document.getElementById('genre-select');
 
-  const option = document.createElement("option");
+  const option = document.createElement('option');
   option.value = genreObj.id;
   option.label = genreObj.name;
 
@@ -64,10 +64,10 @@ const generateGenreMarkup = genreObj => {
 };
 
 const generateMovieMarkup = (movieArr, genreObj) => {
-  const movieList = document.getElementsByClassName(genreObj.name + "-class");
-  movieList.innerHTML = "";
+  const movieList = document.getElementsByClassName(genreObj.name + '-class');
+  movieList.innerHTML = '';
 
-  movieArr.forEach(movie => {
+  movieArr.map(movie => {
     movieList.innerHTML += `<li>Title: ${movie.title} --- Length: ${movie.length} minutes --- Watched: ${movie.is_watched}</li>`;
   });
 
@@ -75,10 +75,10 @@ const generateMovieMarkup = (movieArr, genreObj) => {
 };
 
 // Create genre
-const createGenreBtn = document.getElementById("create-genre-btn");
-const createGenreText = document.getElementById("create-genre-text");
+const createGenreBtn = document.getElementById('create-genre-btn');
+const createGenreText = document.getElementById('create-genre-text');
 
-createGenreBtn.addEventListener("click", event => {
+createGenreBtn.addEventListener('click', event => {
   event.preventDefault();
   createGenre();
 });
@@ -87,40 +87,41 @@ const createGenre = () => {
   const genreName = createGenreText.value;
 
   if (genreName.length > 0) {
-    createGenreText.value = "";
+    createGenreText.value = '';
 
     const genre = {
       name: genreName
     };
 
-    fetch(BASE_URL + "/genres", {
-      method: "POST",
+    fetch(BASE_URL + '/genres', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify(genre)
     })
       .then(response => response.json())
       .then(genre => {
-        let genreList = document.getElementById("accordion");
+        let genreList = document.getElementById('accordion');
         genreList.innerHTML += generateGenreMarkup(genre);
-        generateGenreSelectOption(genre);
+        const newGenre = new Genre(genre);
+        newGenre.render();
       })
       .catch(error => {
-        const errorMsg = document.getElementById("errors");
-        errorMsg.innerHTML = "That genre name already exists.";
+        const errorMsg = document.getElementById('errors');
+        errorMsg.innerHTML = 'That genre name already exists.';
       });
   }
 };
 
 // Create movie
-const genreSelect = document.getElementById("genre-select");
-const movieTitle = document.getElementById("create-movie-title-text");
-const movieLength = document.getElementById("create-movie-lenght-text");
-const watchedCheckbox = document.getElementById("create-movie-watched-check");
-const createMovieBtn = document.getElementById("create-movie-btn");
+const genreSelect = document.getElementById('genre-select');
+const movieTitle = document.getElementById('create-movie-title-text');
+const movieLength = document.getElementById('create-movie-lenght-text');
+const watchedCheckbox = document.getElementById('create-movie-watched-check');
+const createMovieBtn = document.getElementById('create-movie-btn');
 
-createMovieBtn.addEventListener("click", event => {
+createMovieBtn.addEventListener('click', event => {
   event.preventDefault();
   createMovie();
 });
@@ -133,13 +134,13 @@ const createMovie = () => {
     genre_id: genreSelect.value
   };
 
-  movieTitle.value = "";
-  movieLength.value = "";
+  movieTitle.value = '';
+  movieLength.value = '';
 
-  fetch(BASE_URL + "/movies", {
-    method: "POST",
+  fetch(BASE_URL + '/movies', {
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json"
+      'Content-Type': 'application/json'
     },
     body: JSON.stringify(movie)
   })
@@ -150,7 +151,7 @@ const createMovie = () => {
       newMovie.render();
     })
     .catch(error => {
-      const errorMsg = document.getElementById("errors");
+      const errorMsg = document.getElementById('errors');
       errorMsg.innerHTML = error;
     });
 };
