@@ -8,10 +8,18 @@ class Movie {
 
   render() {
     let movieList = document.getElementsByClassName(
-      this.genre.name + "-class"
+      this.genre.name + '-class'
     )[0];
 
-    const newMovie = `<li>Title: ${this.title} --- Length: ${this.length} minutes --- Watched: ${this.is_watched}</li>`;
+    let status = '';
+
+    if (this.isWatched == false) {
+      status = 'false';
+    } else {
+      status = 'true';
+    }
+
+    const newMovie = `<li>Title: ${this.title} --- Length: ${this.length} minutes --- Watched: ${status}</li>`;
     movieList.innerHTML += newMovie;
   }
 }
