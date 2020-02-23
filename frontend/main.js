@@ -102,13 +102,12 @@ const createGenre = () => {
     })
       .then(response => response.json())
       .then(genre => {
-        let genreList = document.getElementById('accordion');
-        genreList.innerHTML += generateGenreMarkup(genre);
         const newGenre = new Genre(genre);
         newGenre.render();
       })
       .catch(error => {
         const errorMsg = document.getElementById('errors');
+        console.log(error);
         errorMsg.innerHTML = 'That genre name already exists.';
       });
   }
