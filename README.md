@@ -6,9 +6,9 @@ Movies To Watch is a simple web application. It has a Ruby on Rails backend API,
 
 ## Techonogies Used
 
-Ruby
-Ruby on Rails
-JavaScript
+1. Ruby
+2. Ruby on Rails
+3. JavaScript
 
 ## Installing
 
